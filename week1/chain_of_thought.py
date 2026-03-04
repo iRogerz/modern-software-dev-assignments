@@ -5,10 +5,21 @@ from ollama import chat
 
 load_dotenv()
 
-NUM_RUNS_TIMES = 5
+NUM_RUNS_TIMES = 3
 
 # TODO: Fill this in!
-YOUR_SYSTEM_PROMPT = ""
+YOUR_SYSTEM_PROMPT = """
+You are a very good math solver, using step-by-step
+always give the final answer as "Answer: <number>
+
+example: 
+question: what is 7^128 (mod100)?
+1. power of 7 mod 10 cycle every 4
+2. 128 mod 4 = 0, so use 7^4 mod 10 = 1
+Answer: 1
+
+Now solve the user's problem and follow the same pattern
+"""
 
 
 USER_PROMPT = """
