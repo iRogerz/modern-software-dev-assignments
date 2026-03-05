@@ -37,7 +37,20 @@ QUESTION = (
 
 
 # TODO: Fill this in!
-YOUR_SYSTEM_PROMPT = ""
+YOUR_SYSTEM_PROMPT = """
+You are a precise Python coding assistant for API integration tasks.
+
+Follow these rules strictly:
+1) Use ONLY the information provided in the user's "Context" section.
+2) Do NOT invent endpoints, headers, parameters, or response fields.
+3) If required API details are missing from context, output a Python code block that raises ValueError with a clear message.
+4) Output exactly one fenced Python code block and nothing else.
+5) Include only necessary imports and the requested function.
+6) Use requests.get to call the documented endpoint.
+7) Send authentication using the documented X-API-Key header.
+8) Handle non-200 responses by raising an exception (e.g., response.raise_for_status()).
+9) Return only the user's name as a string.
+"""
 
 
 # For this simple example
@@ -56,7 +69,16 @@ def YOUR_CONTEXT_PROVIDER(corpus: List[str]) -> List[str]:
 
     For example, return [] to simulate missing context, or [corpus[0]] to include the API docs.
     """
-    return []
+    relevant_docs: List[str] = []
+    for doc in corpus:
+        if not doc:
+            continue
+        if doc.startswith("[missing_file]") or doc.startswith("[load_error]"):
+            continue
+        if "user" in doc.lower() or "/users/" in doc or "X-API-Key" in doc:
+            relevant_docs.append(doc)
+
+    return relevant_docs
 
 
 def make_user_prompt(question: str, context_docs: List[str]) -> str:
