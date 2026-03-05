@@ -15,7 +15,16 @@ Keep the implementation minimal.
 """
 
 # TODO: Fill this in!
-YOUR_REFLEXION_PROMPT = ""
+YOUR_REFLEXION_PROMPT = """
+you are a talent programmer, jour job is to see if the input is correct or not.
+
+this code doesn't correct
+```
+def is_valid_password(password: str) -> bool:
+    return len(password) >= 8 and any(c.isalpha() for c in password) and any(c.isdigit() for c in password)
+FAILURE (initial implementation failed some tests): ['Input: password1! → expected False, got True. Failing checks: missing uppercase', 'Input: Password1 → expected False, got True. Failing checks: missing special']
+```
+"""
 
 
 # Ground-truth test suite used to evaluate generated code
