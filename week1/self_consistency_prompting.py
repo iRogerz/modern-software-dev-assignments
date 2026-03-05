@@ -9,7 +9,17 @@ load_dotenv()
 NUM_RUNS_TIMES = 5
 
 # TODO: Fill this in! Try to get as close to 100% correctness across all runs as possible.
-YOUR_SYSTEM_PROMPT = ""
+YOUR_SYSTEM_PROMPT = """
+you are a great math solver, always reason step-by-step, and answer the question as "Answer: <number>"
+
+Example: 
+problem A: a jar has 12 candies: you eat 5 and then add 3 more. how many are left?
+Reasoning: 
+1. start with 12
+2. after ate 5, 12 - 5 = 7
+3. then add 3, 7 + 3 + 10
+Answer: 10
+"""
 
 USER_PROMPT = """
 Solve this problem, then give the final answer on the last line as "Answer: <number>".
